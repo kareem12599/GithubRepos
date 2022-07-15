@@ -6,12 +6,13 @@ import androidx.paging.PagingData
 import com.example.githubrepos.data.model.User
 import com.example.githubrepos.data.remote.ReposDataSource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 interface GithubRepository {
     fun fetchRepos(): Flow<PagingData<User>>
 }
 
-class GithubRepositoryImp(
+class GithubRepositoryImp @Inject constructor(
     private val dataSource: ReposDataSource
 ) : GithubRepository {
     override fun fetchRepos(): Flow<PagingData<User>> {
@@ -21,6 +22,6 @@ class GithubRepositoryImp(
     }
 
     companion object {
-        const val NETWORK_PAGE_SIZE = 50
+        const val NETWORK_PAGE_SIZE = 10
     }
 }
