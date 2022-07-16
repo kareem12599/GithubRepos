@@ -6,6 +6,8 @@ data class User(
     val owner: Owner,
     val private: Boolean,
     val visibility: String,
+    val description: String,
+    val html_url: String
 )
 
 data class Owner(val avatar_url: String)

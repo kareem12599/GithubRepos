@@ -85,7 +85,7 @@ fun GithubRepos(lazyPagingItems: LazyPagingItems<User>, modifier: Modifier = Mod
 }
 
 @Composable
-fun GitHubItem(user: User, onClick: () -> Unit) {
+fun GitHubItem(user: User, onClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .padding(12.dp)
@@ -140,7 +140,6 @@ fun GitHubItem(user: User, onClick: () -> Unit) {
 }
 
 
-@Preview(showBackground = true)
 @Composable
 fun LoadingItem(modifier: Modifier = Modifier) {
     CircularProgressIndicator(

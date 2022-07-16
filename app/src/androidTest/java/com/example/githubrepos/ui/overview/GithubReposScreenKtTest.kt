@@ -1,12 +1,15 @@
-package com.example.githubrepos.ui
+package com.example.githubrepos.ui.overview
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.githubrepos.data.model.Owner
 import com.example.githubrepos.data.model.User
+import com.example.githubrepos.ui.GitHubItem
+import com.example.githubrepos.ui.GithubRepos
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.flow
@@ -29,7 +32,7 @@ class GithubReposScreenKtTest {
     }
 
     @Test
-    fun GetHubReposTest() {
+    fun gitHubReposScreenTest() {
         composeTestRule.setContent {
             GithubRepos(
                 lazyPagingItems = fakePagingData.collectAsLazyPagingItems()
@@ -39,19 +42,33 @@ class GithubReposScreenKtTest {
         composeTestRule.onNodeWithTag("loading view").assertIsDisplayed()
     }
 
+    @Test
+    fun githubReposItemTest() {
+        composeTestRule.setContent {
+            GitHubItem(fakeUser)
+        }
+        composeTestRule.onNodeWithText("user_name").assertIsDisplayed()
+        composeTestRule.onNodeWithText("public").assertIsDisplayed()
+        composeTestRule.onNodeWithText("✅").assertIsDisplayed()
+    }
+
 
 }
 
 val fakePagingData = flow<PagingData<User>> {
     PagingData.from(
         listOf(
-            User(
-                name = "Karim",
-                full_name = "",
-                owner = Owner(""),
-                private = false,
-                visibility = "public"
-            )
+            fakeUser
         )
     )
 }
+val fakeUser =
+    User(
+        name = "user_name",
+        full_name = "full_name",
+        owner = Owner(""),
+        private = false,
+        visibility = "public",
+        description = "",
+        html_url = ""
+    )
