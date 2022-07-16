@@ -8,8 +8,6 @@ import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.githubrepos.data.model.Owner
 import com.example.githubrepos.data.model.User
-import com.example.githubrepos.ui.GitHubItem
-import com.example.githubrepos.ui.GithubRepos
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.flow
@@ -35,7 +33,8 @@ class GithubReposScreenKtTest {
     fun gitHubReposScreenTest() {
         composeTestRule.setContent {
             GithubRepos(
-                lazyPagingItems = fakePagingData.collectAsLazyPagingItems()
+                lazyPagingItems = fakePagingData.collectAsLazyPagingItems(),
+                onItemClicked = {}
             )
 
         }

@@ -1,4 +1,4 @@
-package com.example.githubrepos.ui.theme
+package com.example.core_designsystem.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

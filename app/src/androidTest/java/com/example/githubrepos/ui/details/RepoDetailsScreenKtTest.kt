@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class RepoDetailsScreenKtTest{
+class RepoDetailsScreenKtTest {
     @get:Rule(order = 1)
     val hiltRule = HiltAndroidRule(this)
 
@@ -24,11 +24,12 @@ class RepoDetailsScreenKtTest{
         hiltRule.inject()
 
     }
+
     @Test
-    fun gitHubRepoDetailsScreenTest(){
+    fun gitHubRepoDetailsScreenTest() {
         composeTestRule.setContent {
-            RepoDetailsScreen(
-                fakeUser, {}, {}
+            ReposDetails(
+                fakeUser, {}
             )
         }
         composeTestRule.onNodeWithContentDescription("back-arrow").assertIsDisplayed()
