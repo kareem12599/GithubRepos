@@ -27,17 +27,16 @@ import com.example.core_designsystem.component.RepoDescriptionText
 import com.example.core_designsystem.component.RepoIsPrivateSign
 import com.example.core_designsystem.component.RepoUserFullName
 import com.example.core_designsystem.component.RepoVisibilityText
-import com.example.githubrepos.data.model.User
-import com.example.githubrepos.ui.GithubReposViewModel
+import com.example.githubrepos.data.model.Repo
 
 @Composable
 fun RepoDetailsScreen(
-    userItem: User?,
+    repoItem: Repo?,
     onBackIconClicked: () -> Unit,
 ) {
-    userItem?.let {
+    repoItem?.let {
         ReposDetails(
-            user = it,
+            repo = it,
             onBackIconClicked = onBackIconClicked,
         )
     }
@@ -47,7 +46,7 @@ fun RepoDetailsScreen(
 
 @Composable
 fun ReposDetails(
-    user: User,
+    repo: Repo,
     onBackIconClicked: () -> Unit,
 ) {
 
@@ -75,17 +74,17 @@ fun ReposDetails(
             ) {
 
                 Spacer(modifier = Modifier.height(18.dp))
-                user.owner?.let { RepoAvatarImageRoundedCorner(it.avatar_url) }
+                repo.owner?.let { RepoAvatarImageRoundedCorner(it.avatar_url) }
                 Spacer(modifier = Modifier.height(8.dp))
-                user.full_name?.let { RepoUserFullName(it) }
+                repo.full_name?.let { RepoUserFullName(it) }
                 Spacer(modifier = Modifier.height(8.dp))
-                user.description?.let { RepoDescriptionText(it) }
+                repo.description?.let { RepoDescriptionText(it) }
                 Spacer(modifier = Modifier.height(8.dp))
-                user.visibility?.let { RepoVisibilityText(it) }
+                repo.visibility?.let { RepoVisibilityText(it) }
                 Spacer(modifier = Modifier.height(8.dp))
-                user.private?.let { RepoIsPrivateSign(it) }
+                repo.private?.let { RepoIsPrivateSign(it) }
                 Spacer(modifier = Modifier.height(8.dp))
-                user.html_url?.let { CTAButton(it) }
+                repo.html_url?.let { CTAButton(it) }
             }
 
 

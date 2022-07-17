@@ -1,6 +1,6 @@
 package com.example.githubrepos.data.model
 
-data class User(
+data class Repo(
     val name: String?,
     val full_name: String?,
     val owner: Owner?,

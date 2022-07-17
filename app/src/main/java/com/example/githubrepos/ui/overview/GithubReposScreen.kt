@@ -30,7 +30,7 @@ import com.example.core_designsystem.component.LoadingItem
 import com.example.core_designsystem.component.RepoIsPrivateSign
 import com.example.core_designsystem.component.RepoNameText
 import com.example.core_designsystem.component.RepoVisibilityText
-import com.example.githubrepos.data.model.User
+import com.example.githubrepos.data.model.Repo
 import com.example.githubrepos.ui.GithubReposViewModel
 
 @Composable
@@ -53,8 +53,8 @@ fun GithubReposScreen(
 
 @Composable
 fun GithubRepos(
-    lazyPagingItems: LazyPagingItems<User>, modifier: Modifier = Modifier,
-    onItemClicked: (User) -> Unit
+    lazyPagingItems: LazyPagingItems<Repo>, modifier: Modifier = Modifier,
+    onItemClicked: (Repo) -> Unit
 ) {
     LazyColumn(
         modifier = modifier.semantics { contentDescription = "Overview Screen" }
@@ -66,7 +66,7 @@ fun GithubRepos(
 
         items(lazyPagingItems) { item ->
             item?.let {
-                GitHubItem(user = it) {
+                GitHubItem(repo = it) {
                     onItemClicked(it)
                 }
             }
@@ -92,7 +92,7 @@ fun GithubRepos(
 }
 
 @Composable
-fun GitHubItem(user: User, onClick: () -> Unit = {}) {
+fun GitHubItem(repo: Repo, onClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .padding(12.dp)
@@ -110,13 +110,13 @@ fun GitHubItem(user: User, onClick: () -> Unit = {}) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            user.owner?.let { RepoAvatarImageCircleShape(it.avatar_url) }
+            repo.owner?.let { RepoAvatarImageCircleShape(it.avatar_url) }
 
             Column(modifier = Modifier.padding(24.dp)) {
 
-                user.name?.let { RepoNameText(it) }
-                user.visibility?.let { RepoVisibilityText(user.visibility) }
-                user.private?.let { RepoIsPrivateSign(it) }
+                repo.name?.let { RepoNameText(it) }
+                repo.visibility?.let { RepoVisibilityText(repo.visibility) }
+                repo.private?.let { RepoIsPrivateSign(it) }
 
             }
 

@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.githubrepos.data.model.Owner
-import com.example.githubrepos.data.model.User
+import com.example.githubrepos.data.model.Repo
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.flow
@@ -44,7 +44,7 @@ class GithubReposScreenKtTest {
     @Test
     fun githubReposItemTest() {
         composeTestRule.setContent {
-            GitHubItem(fakeUser)
+            GitHubItem(fakeRepo)
         }
         composeTestRule.onNodeWithText("user_name").assertIsDisplayed()
         composeTestRule.onNodeWithText("public").assertIsDisplayed()
@@ -54,15 +54,15 @@ class GithubReposScreenKtTest {
 
 }
 
-val fakePagingData = flow<PagingData<User>> {
+val fakePagingData = flow<PagingData<Repo>> {
     PagingData.from(
         listOf(
-            fakeUser
+            fakeRepo
         )
     )
 }
-val fakeUser =
-    User(
+val fakeRepo =
+    Repo(
         name = "user_name",
         full_name = "full_name",
         owner = Owner(""),

@@ -2,15 +2,15 @@ package com.example.githubrepos.data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.githubrepos.data.model.User
+import com.example.githubrepos.data.model.Repo
 
-class ReposDataSource(private val apiClient: GitHubRepoApi) : PagingSource<Int, User>() {
+class ReposDataSource(private val apiClient: GitHubRepoApi) : PagingSource<Int, Repo>() {
 
-    override fun getRefreshKey(state: PagingState<Int, User>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Repo>): Int? {
         return state.anchorPosition
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Repo> {
         return try {
             val nextPage = params.key ?: 1
             val userList = apiClient.getRepos(page = nextPage)

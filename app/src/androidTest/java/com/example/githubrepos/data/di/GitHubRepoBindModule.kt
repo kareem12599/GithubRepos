@@ -1,10 +1,9 @@
 package com.example.githubrepos.data.di
 
 import androidx.paging.PagingData
-import com.example.githubrepos.data.model.User
+import com.example.githubrepos.data.model.Repo
 import com.example.githubrepos.data.repository.GithubRepository
-import com.example.githubrepos.data.repository.GithubRepositoryImp
-import com.example.githubrepos.ui.overview.fakeUser
+import com.example.githubrepos.ui.overview.fakeRepo
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.android.components.ActivityRetainedComponent
@@ -26,9 +25,9 @@ abstract class AppTestModule {
     abstract fun bindGithubRepository(repositoryImpl: FakeGithubRepository): GithubRepository
 
     class FakeGithubRepository @Inject constructor() : GithubRepository {
-        override fun fetchRepos(): Flow<PagingData<User>> {
+        override fun fetchRepos(): Flow<PagingData<Repo>> {
             return flow {
-                PagingData.from(listOf(fakeUser))
+                PagingData.from(listOf(fakeRepo))
             }
         }
 

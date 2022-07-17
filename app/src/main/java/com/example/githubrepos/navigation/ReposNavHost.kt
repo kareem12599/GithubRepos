@@ -45,7 +45,7 @@ fun NavGraphBuilder.ReposGraph(
         route = GithubReposScreens.Details.name
     ) {
         RepoDetailsScreen(
-            userItem = viewModel.userItem,
+            repoItem = viewModel.repoItem,
             onBackIconClicked = navigateBackToOverView
         )
     }

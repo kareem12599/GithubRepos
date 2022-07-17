@@ -3,7 +3,7 @@ package com.example.githubrepos.data.remote
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
 import com.example.githubrepos.data.model.Owner
-import com.example.githubrepos.data.model.User
+import com.example.githubrepos.data.model.Repo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -21,16 +21,18 @@ class ReposDataSourceTest {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    lateinit var api: GitHubRepoApi
+    private lateinit var api: GitHubRepoApi
 
-    lateinit var reposDataSource: ReposDataSource
+    private lateinit var reposDataSource: ReposDataSource
 
-    private val fakeUser = User(
+    private val fakeRepo = Repo(
         name = "Karim",
         full_name = "",
         owner = Owner(""),
         private = false,
-        visibility = "public"
+        visibility = "public",
+        description = "",
+        html_url = ""
     )
 
 
@@ -45,7 +47,7 @@ class ReposDataSourceTest {
     fun `when loading pages fails, paging data source propagates error `() = runTest {
         val error = RuntimeException("404", Throwable())
         given(api.getRepos(any())).willThrow(error)
-        val expectedResult = PagingSource.LoadResult.Error<Int, User>(error)
+        val expectedResult = PagingSource.LoadResult.Error<Int, Repo>(error)
         assertEquals(
             expectedResult, reposDataSource.load(
                 PagingSource.LoadParams.Refresh(
@@ -60,9 +62,9 @@ class ReposDataSourceTest {
     @Test
     fun `when refreshing the first element in  source page, data loaded and returns success`() =
         runTest {
-            given(api.getRepos(any())).willReturn(listOf(fakeUser))
+            given(api.getRepos(any())).willReturn(listOf(fakeRepo))
             val expectedResult = PagingSource.LoadResult.Page(
-                data = listOf(fakeUser),
+                data = listOf(fakeRepo),
                 prevKey = null,
                 nextKey = 2
             )
@@ -80,9 +82,9 @@ class ReposDataSourceTest {
     @Test
     fun `when appending an element into repos page, new key updated and return success`() =
         runTest {
-            given(api.getRepos(any())).willReturn(listOf(fakeUser))
+            given(api.getRepos(any())).willReturn(listOf(fakeRepo))
             val expectedResult = PagingSource.LoadResult.Page(
-                data = listOf(fakeUser),
+                data = listOf(fakeRepo),
                 prevKey = 2,
                 nextKey = 4
             )

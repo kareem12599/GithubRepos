@@ -4,7 +4,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import com.example.githubrepos.ui.overview.fakeUser
+import com.example.githubrepos.ui.overview.fakeRepo
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
@@ -29,7 +29,7 @@ class RepoDetailsScreenKtTest {
     fun gitHubRepoDetailsScreenTest() {
         composeTestRule.setContent {
             ReposDetails(
-                fakeUser, {}
+                fakeRepo, {}
             )
         }
         composeTestRule.onNodeWithContentDescription("back-arrow").assertIsDisplayed()

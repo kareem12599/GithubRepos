@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.example.githubrepos.data.model.User
+import com.example.githubrepos.data.model.Repo
 import com.example.githubrepos.data.repository.GithubRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -16,11 +16,11 @@ class GithubReposViewModel @Inject constructor(repository: GithubRepository) : V
 
     val users = repository.fetchRepos().cachedIn(viewModelScope)
 
-    var userItem by mutableStateOf<User?>(null)
+    var repoItem by mutableStateOf<Repo?>(null)
         private set
 
-    fun setUser(user: User) {
-        userItem = user
+    fun setUser(repo: Repo) {
+        repoItem = repo
     }
 
 }
