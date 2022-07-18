@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
@@ -19,7 +19,18 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"]
+            }
+        }
+
+
     }
+
 
 
     buildTypes {
@@ -104,10 +115,19 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.1.1"
 
     debugImplementation "androidx.compose.ui:ui-test-manifest:1.1.1"
-
     androidTestImplementation "com.google.dagger:hilt-android-testing:2.42"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.42"
     testImplementation "com.google.dagger:hilt-android-testing:2.42"
     kaptTest "com.google.dagger:hilt-android-compiler:2.42"
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    androidTestImplementation 'org.mockito:mockito-android:3.12.4'
+
+
+
+    //Room
+    implementation "androidx.room:room-runtime:2.5.0-alpha02"
+    kapt "androidx.room:room-compiler:2.5.0-alpha02"
+    implementation "androidx.room:room-ktx:2.5.0-alpha02"
+    implementation "androidx.room:room-paging:2.5.0-alpha02"
 
 }

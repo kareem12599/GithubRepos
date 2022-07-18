@@ -73,17 +73,21 @@ fun GithubRepos(
         }
         with(lazyPagingItems) {
             when {
-                loadState.append == LoadState.Loading -> {
+                loadState.mediator?.append == LoadState.Loading -> {
                     item { LoadingItem() }
                 }
-                loadState.refresh is LoadState.Error -> {
+                loadState.mediator?.refresh is LoadState.Error -> {
                     val e = lazyPagingItems.loadState.refresh as LoadState.Error
                     item {
-                        ErrorItem(
-                            message = e.error.localizedMessage!!,
-                            modifier = Modifier.fillParentMaxSize(),
-                            onClickRetry = { retry() }
-                        )
+                        e.error.message?.let {
+                            ErrorItem(
+                                message = it,
+                                modifier = Modifier.fillMaxWidth(),
+                                onClickRetry = {
+                                    refresh()
+                                }
+                            )
+                        }
                     }
                 }
             }
@@ -115,7 +119,7 @@ fun GitHubItem(repo: Repo, onClick: () -> Unit = {}) {
             Column(modifier = Modifier.padding(24.dp)) {
 
                 repo.name?.let { RepoNameText(it) }
-                repo.visibility?.let { RepoVisibilityText(repo.visibility) }
+                repo.visibility?.let { RepoVisibilityText(it) }
                 repo.private?.let { RepoIsPrivateSign(it) }
 
             }

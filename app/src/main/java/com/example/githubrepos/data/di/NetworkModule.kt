@@ -1,8 +1,9 @@
 package com.example.githubrepos.data.di
 
 import com.example.githubrepos.BuildConfig
+import com.example.githubrepos.data.database.RepoDatabase
 import com.example.githubrepos.data.remote.GitHubRepoApi
-import com.example.githubrepos.data.remote.ReposDataSource
+import com.example.githubrepos.data.remote.ReposRemoteMediator
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -41,5 +42,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideReposDataSource(api: GitHubRepoApi) = ReposDataSource(api)
+    fun provideReposRemoteMediator(api: GitHubRepoApi, database: RepoDatabase) = ReposRemoteMediator(api, database)
+
+
 }

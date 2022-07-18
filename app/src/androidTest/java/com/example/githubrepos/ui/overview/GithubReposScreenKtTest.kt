@@ -63,6 +63,7 @@ val fakePagingData = flow<PagingData<Repo>> {
 }
 val fakeRepo =
     Repo(
+        id = 12,
         name = "user_name",
         full_name = "full_name",
         owner = Owner(""),
